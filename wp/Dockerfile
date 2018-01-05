@@ -19,11 +19,8 @@ RUN curl -O https://ja.wordpress.org/${WORDPRESS_TAR_FILE} \
 ADD .gitignore /var/www/wp_pre
 
 # install wordmove
-RUN apk add git ruby ruby-dev ruby-bundler make gcc build-base
-RUN git clone https://github.com/welaika/wordmove /wordmove \
- && cd /wordmove \
- && bundle install \
- && bundle update
+RUN apk add ruby ruby-dev ruby-rdoc ruby-bundler ruby-bigdecimal ruby-irb make gcc build-base
+RUN gem install wordmove
 
 # setup entrypoint
 RUN mkdir /var/www/wp
