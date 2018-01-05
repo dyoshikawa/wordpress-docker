@@ -31,4 +31,4 @@ services:
       - ./mysql:/var/lib/mysql
     env_file: development.env
     ports:
-      - "3306:3306"
+      - "13306:3306"
