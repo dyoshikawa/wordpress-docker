@@ -1,5 +1,7 @@
 FROM mysql:5.7
 
-RUN useradd -m -s /bin/bash -u 1000 dockeruser
-
+# set encode-utf8
 ADD encode.cnf /etc/mysql/conf.d/encode.cnf
+
+# set workdir
+WORKDIR /etc/mysql

@@ -3,7 +3,6 @@ services:
   nginx:
     build:
       context: ./nginx
-      dockerfile: Dockerfile
     container_name: wp_nginx
     volumes:
       - ./wp/var-www-wp:/var/www/wp
@@ -14,9 +13,7 @@ services:
   wp:
     build:
       context: ./wp
-      dockerfile: Dockerfile
     container_name: wp_wp
-    env_file: development.env
     volumes:
       - ./wp/var-www-wp:/var/www/wp
     links:
@@ -25,10 +22,9 @@ services:
     restart: always
     build:
       context: ./mysql
-      dockerfile: Dockerfile
     container_name: wp_mysql
     volumes:
-      - ./mysql:/var/lib/mysql
+      - ./mysql/var-lib-mysql:/var/lib/mysql
     env_file: development.env
     ports:
       - "13306:3306"
