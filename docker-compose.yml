@@ -1,0 +1,30 @@
+version: '3'
+services:
+  nginx:
+    build:
+      context: ./nginx
+    container_name: wp_nginx
+    volumes:
+      - ./wp/var-www-wp:/var/www/wp
+    ports:
+      - "8000:80"
+    links:
+      - wp
+  wp:
+    build:
+      context: ./wp
+    container_name: wp_wp
+    volumes:
+      - ./wp/var-www-wp:/var/www/wp
+    links:
+      - mysql
+  mysql:
+    restart: always
+    build:
+      context: ./mysql
+    container_name: wp_mysql
+    volumes:
+      - ./mysql/var-lib-mysql:/var/lib/mysql
+    env_file: development.env
+    ports:
+      - "13306:3306"
