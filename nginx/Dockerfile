@@ -1,4 +1,4 @@
-FROM nginx:alpine
+FROM nginx:mainline-alpine
 
 RUN adduser -D -s /bin/sh -u 1000 dockeruser \
  && sed -i 's/user\ \ nginx\;/user\ \ dockeruser\;/g' /etc/nginx/nginx.conf

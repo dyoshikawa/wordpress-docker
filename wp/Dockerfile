@@ -1,12 +1,12 @@
-FROM php:7-fpm-alpine
+FROM php:7.2.0-fpm-alpine3.7
 
 # install bash
 RUN apk --update add bash
 
-# setup dockeruser
+# add and set php-fpm dockeruser
 RUN adduser -D -s /bin/sh -u 1000 dockeruser \
- && sed -i 's/user\ \=\ www-data/user\ \=\ dockeruser/g' /usr/local/etc/php-fpm.d/www.conf \
- && sed -i 's/group\ \=\ www-data/group\ \=\ dockeruser/g' /usr/local/etc/php-fpm.d/www.conf
+ && sed -i 's/www-data/dockeruser/g' /usr/local/etc/php-fpm.d/www.conf \
+ && sed -i 's/www-data/dockeruser/g' /usr/local/etc/php-fpm.d/www.conf
 
 # mysql-extention
 RUN apk add libjpeg-turbo-dev libpng-dev \
