@@ -19,7 +19,6 @@ services:
     links:
       - mysql
   mysql:
-    restart: always
     build:
       context: ./mysql
     container_name: wp_mysql
