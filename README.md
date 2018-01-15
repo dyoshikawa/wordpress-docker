@@ -1,7 +1,7 @@
 # Docker Wordpress
 ## Start
 ~~~
-$ git clone https://github.com/daioyoshikawa/docker-wordpress.git
+$ git clone https://github.com/dyoshikawa/docker-wordpress.git
 $ cd docker-wordpress
 $ docker-compose up -d
 ~~~
