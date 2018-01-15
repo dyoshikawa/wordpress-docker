@@ -11,7 +11,7 @@ $ docker-compose up -d
 - mysql.env無変更の場合
 
 |項目|値|
-|---:|---:|
+|:---|:---|
 |ホスト|mysql|
 |パスワード|password|
 |データベース|wordpress|
