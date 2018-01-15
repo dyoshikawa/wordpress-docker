@@ -13,8 +13,9 @@ $ docker-compose up -d
 |項目|値|
 |:---|:---|
 |ホスト|mysql|
-|パスワード|password|
 |データベース|wordpress|
+|ユーザ|root|
+|パスワード|password|
 
 ## 参考
 - https://tech.recruit-mp.co.jp/infrastructure/post-13086/
