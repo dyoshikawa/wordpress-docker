@@ -14,11 +14,9 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
  && chmod 777 wp-cli.phar \
  && mv wp-cli.phar /bin/wp
 
-# install wp and set pre-workdir
-RUN wp --allow-root core download --locale=ja \
- && wp --allow-root core config --dbuser=root --dbpass=${MYSQL_ROOT_PASSWORD} --dbname=${MYSQL_DATABASE} \
- && wp --allow-root core install --url=localhost:8000 --title=test --admin_name=test --admin_email=test@test.com --admin_password=password
-RUN mv /var/www/wordpress /var/www/wp-pre
+# install wp
+RUN wp --allow-root core download --locale=ja --path=/var/www/wp-pre
+# set pre-workdir
 WORKDIR /var/www/wp-pre
 
 # add .gitignore
