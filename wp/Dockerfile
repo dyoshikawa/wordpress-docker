@@ -35,3 +35,6 @@ RUN apk add mysql-client
 ADD wp-entrypoint.sh /bin/wp-entrypoint.sh
 RUN chmod 777 /bin/wp-entrypoint.sh
 ENTRYPOINT ["wp-entrypoint.sh"]
+
+# todo sendmail
+# todo nginx? change branch
