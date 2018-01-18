@@ -16,6 +16,7 @@ services:
     container_name: wp_wp
     volumes:
       - ./wp/var-www-wp:/var/www/wp
+    env_file: .env
     links:
       - mysql
   mysql:

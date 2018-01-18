@@ -15,9 +15,10 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
  && mv wp-cli.phar /bin/wp
 
 # install wp and set pre-workdir
-RUN wp --allow-root core download --locale=ja --path=/var/www/wp-pre \
+RUN wp --allow-root core download --locale=ja \
  && wp --allow-root core config --dbuser=root --dbpass=${MYSQL_ROOT_PASSWORD} --dbname=${MYSQL_DATABASE} \
-# && wp core install --url={公開するURL} --title="{サイトのタイトル}" --admin_name={アドミンユーザー名} --admin_email={アドミンメールアドレス} --admin_password={アドミンパスワード}
+ && wp --allow-root core install --url=localhost:8000 --title=test --admin_name=test --admin_email=test@test.com --admin_password=password
+RUN mv /var/www/wordpress /var/www/wp-pre
 WORKDIR /var/www/wp-pre
 
 # add .gitignore
