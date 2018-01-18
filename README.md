@@ -1,10 +1,21 @@
 # Docker Wordpress
 ## Start
 ~~~
-$ git clone https://github.com/daioyoshikawa/docker-wordpress.git
+$ git clone https://github.com/dyoshikawa/docker-wordpress.git
 $ cd docker-wordpress
 $ docker-compose up -d
 ~~~
+
+## WordPress初期設定
+
+- mysql.env無変更の場合
+
+|項目|値|
+|:---|:---|
+|ホスト|mysql|
+|データベース|wordpress|
+|ユーザ|root|
+|パスワード|password|
 
 ## 参考
 - https://tech.recruit-mp.co.jp/infrastructure/post-13086/
