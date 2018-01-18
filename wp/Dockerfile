@@ -5,7 +5,7 @@ RUN adduser -D -s /bin/sh -u 1000 dockeruser \
  && sed -i 's/user\ \=\ www-data/user\ \=\ dockeruser/g' /usr/local/etc/php-fpm.d/www.conf \
  && sed -i 's/group\ \=\ www-data/group\ \=\ dockeruser/g' /usr/local/etc/php-fpm.d/www.conf
 
-# mysql-extention
+# install mysql-extention
 RUN apk --update add libjpeg-turbo-dev libpng-dev \
  && docker-php-ext-install mysqli pdo_mysql gd mbstring
 
