@@ -1,26 +1,24 @@
-FROM php:7.2.0-fpm-alpine3.7
+FROM php:7.2-fpm-alpine
 
-# install bash
-RUN apk --update add bash
-
-# add and set php-fpm dockeruser
+# add dockeruser and set php-fpm
 RUN adduser -D -s /bin/sh -u 1000 dockeruser \
- && sed -i 's/www-data/dockeruser/g' /usr/local/etc/php-fpm.d/www.conf \
- && sed -i 's/www-data/dockeruser/g' /usr/local/etc/php-fpm.d/www.conf
+ && sed -i 's/user\ \=\ www-data/user\ \=\ dockeruser/g' /usr/local/etc/php-fpm.d/www.conf \
+ && sed -i 's/group\ \=\ www-data/group\ \=\ dockeruser/g' /usr/local/etc/php-fpm.d/www.conf
 
 # mysql-extention
-RUN apk add libjpeg-turbo-dev libpng-dev \
+RUN apk --update add libjpeg-turbo-dev libpng-dev \
  && docker-php-ext-install mysqli pdo_mysql gd mbstring
 
-# install wordpress
-ENV WORDPRESS_TAR_FILE wordpress-latest-ja.tar.gz
-RUN curl -O https://ja.wordpress.org/${WORDPRESS_TAR_FILE} \
- && tar -xzf ${WORDPRESS_TAR_FILE} -C /var/www \
- && rm ${WORDPRESS_TAR_FILE}
+# install wp-cli
+RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
+ && chmod 777 wp-cli.phar \
+ && mv wp-cli.phar /bin/wp
 
-# set pre-workdir
-RUN mv /var/www/wordpress /var/www/wp_pre
-WORKDIR /var/www/wp_pre
+# install wp and set pre-workdir
+RUN wp --allow-root core download --locale=ja --path=/var/www/wp-pre \
+ && wp --allow-root core config --dbuser=root --dbpass=${MYSQL_ROOT_PASSWORD} --dbname=${MYSQL_DATABASE} \
+# && wp core install --url={公開するURL} --title="{サイトのタイトル}" --admin_name={アドミンユーザー名} --admin_email={アドミンメールアドレス} --admin_password={アドミンパスワード}
+WORKDIR /var/www/wp-pre
 
 # add .gitignore
 ADD .gitignore .gitignore
@@ -28,14 +26,6 @@ ADD .gitignore .gitignore
 # install wordmove
 RUN apk add ruby ruby-dev ruby-rdoc ruby-bundler ruby-bigdecimal ruby-irb make gcc build-base \
  && gem install wordmove
-
-# install and setup nodejs-dev-enviroment
-RUN apk add nodejs nodejs-npm
-ADD package.json package.json
-RUN npm install --save-dev webpack babel-cli babel-preset-env babel-loader node-sass \
- && npm install --save bootstrap-sass
-ADD .babelrc .babelrc
-ADD webpack.config.js webpack.config.js
 
 # set workdir
 RUN mkdir /var/www/wp
