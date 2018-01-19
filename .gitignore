@@ -1,3 +1,2 @@
 .idea
-wp/var-www-wp
-mysql/var-lib-mysql
+volumes
