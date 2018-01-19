@@ -6,16 +6,11 @@ $ cd docker-wordpress
 $ docker-compose up -d
 ~~~
 
-## WordPress初期設定
+## Command
 
-- mysql.env無変更の場合
-
-|項目|値|
-|:---|:---|
-|ホスト|mysql|
-|データベース|wordpress|
-|ユーザ|root|
-|パスワード|password|
+~~~
+$ docker exec -ti wp_wp sh
+~~~
 
 ## 参考
 - https://tech.recruit-mp.co.jp/infrastructure/post-13086/
