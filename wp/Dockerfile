@@ -10,7 +10,7 @@ RUN adduser -D -s /bin/sh -u 1000 dockeruser \
 
 # install sudo and set dockeruser sudoer
 RUN apk add sudo \
- && echo 'dockeruser ALL=(ALL:ALL) ALL' >> /etc/sudoers
+ && echo 'dockeruser ALL=(ALL:ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 # install mysql-extention
 RUN apk add libjpeg-turbo-dev libpng-dev \
