@@ -27,12 +27,13 @@ RUN wp --allow-root core download --locale=ja --path=/var/www/wp-pre \
 # set pre-workdir
 WORKDIR /var/www/wp-pre
 
-# add .gitignore
-ADD .gitignore .gitignore
-
 # install wordmove
 RUN apk add ruby ruby-dev ruby-rdoc ruby-bundler ruby-bigdecimal ruby-irb make gcc build-base \
- && gem install wordmove
+ && gem install wordmove \
+ && wordmove init
+
+# add .gitignore
+ADD .gitignore .gitignore
 
 # set workdir
 RUN mkdir /var/www/wp \
