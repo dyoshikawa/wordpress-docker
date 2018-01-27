@@ -5,7 +5,7 @@ services:
       context: ./nginx
     container_name: wp_nginx
     volumes:
-      - ./volumes/wp.var-www-wp:/var/www/wp
+      - ./volumes/wp/var-www-wp:/var/www/wp
     ports:
       - "8000:80"
     links:
