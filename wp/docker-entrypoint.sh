@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/env bash
 sudo mv /var/www/wp-pre/* /var/www/wp
 sudo mv /var/www/wp-pre/.??* /var/www/wp
 sudo rm -rf /var/www/html /var/www/wp-pre

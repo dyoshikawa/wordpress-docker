@@ -44,10 +44,10 @@ WORKDIR /var/www/wp
 RUN apk add mysql-client
 
 # setup entrypoint
-ADD wp-entrypoint.sh /bin/wp-entrypoint.sh
-RUN chmod 777 /bin/wp-entrypoint.sh
+ADD docker-entrypoint.sh /docker-entrypoint.sh
+RUN chmod 777 /wp-entrypoint.sh
 USER dockeruser
-ENTRYPOINT ["wp-entrypoint.sh"]
+ENTRYPOINT ["bash", "docker-entrypoint.sh"]
 
 # todo sendmail
 # todo install nginx? if do it, change branch
