@@ -45,9 +45,9 @@ RUN apk add mysql-client
 
 # setup entrypoint
 ADD docker-entrypoint.sh /docker-entrypoint.sh
-RUN chmod 777 /wp-entrypoint.sh
+RUN chmod 777 /docker-entrypoint.sh
 USER dockeruser
-ENTRYPOINT ["bash", "docker-entrypoint.sh"]
+ENTRYPOINT ["bash", "/docker-entrypoint.sh"]
 
 # todo sendmail
 # todo install nginx? if do it, change branch
