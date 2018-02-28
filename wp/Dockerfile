@@ -23,9 +23,11 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
 
 # install wp
 RUN wp --allow-root core download --locale=ja --path=/var/www/wp-pre \
- && chown -R dockeruser:dockeruser /var/www/wp-pre
-# set pre-workdir
-WORKDIR /var/www/wp-pre
+ && chown -R dockeruser:dockeruser /var/www/wp
+ && cp -R /var/www/wp /var/www/wp-pre
+
+# set workdir
+WORKDIR /var/www/wp
 
 # install wordmove
 RUN apk add ruby ruby-dev ruby-rdoc ruby-bundler ruby-bigdecimal ruby-irb make gcc build-base \
@@ -35,19 +37,14 @@ RUN apk add ruby ruby-dev ruby-rdoc ruby-bundler ruby-bigdecimal ruby-irb make g
 # add .gitignore
 ADD .gitignore .gitignore
 
-# set workdir
-RUN mkdir /var/www/wp \
- && chown -R dockeruser:dockeruser /var/www/wp
-WORKDIR /var/www/wp
-
 # install mysql-client for using mysqladmin in wp-entrypoint.sh
 RUN apk add mysql-client
 
 # setup entrypoint
-ADD wp-entrypoint.sh /bin/wp-entrypoint.sh
-RUN chmod 777 /bin/wp-entrypoint.sh
+ADD wp-entrypoint.sh /docker-entrypoint.sh
+RUN chmod 777 /docker-entrypoint.sh
 USER dockeruser
-ENTRYPOINT ["wp-entrypoint.sh"]
+ENTRYPOINT ["bash", "/docker-entrypoint.sh"]
 
-# todo sendmail
+# todo mail catcher
 # todo install nginx? if do it, change branch
